@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="uk.ac.sheffield.com1003.park.TestPark" tests="4" skipped="0" failures="0" errors="0" timestamp="2025-03-20T22:04:12" hostname="dyn128151.shef.ac.uk" time="0.023">
+  <properties/>
+  <testcase name="Purchase ticket 1 month ahead and check if ticket is printed with printPendingPurchases" classname="uk.ac.sheffield.com1003.park.TestPark" time="0.015"/>
+  <testcase name="App class exists in the right package" classname="uk.ac.sheffield.com1003.park.TestPark" time="0.001"/>
+  <testcase name="The greeting function is implemented" classname="uk.ac.sheffield.com1003.park.TestPark" time="0.001"/>
+  <testcase name="The categories available is printed correctly" classname="uk.ac.sheffield.com1003.park.TestPark" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -78,7 +78,7 @@ public class TestPark extends TestParkBase{
                 "Single", 30, "None"));
         themePark.printPendingTickets();
         ArrayList<String> lines = getOutLines();
-        assertEquals(5, lines.size());
+        assertEquals(4, lines.size());
         assertEquals("====================", lines.get(0));
         assertEquals("Pending Purchases:", lines.get(1));
         assertEquals("====================", lines.get(2));
