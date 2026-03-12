@@ -1,9 +1,3 @@
-Here is a **README.md written for the COM1003 Problem Sheet**, assuming the assignment has been fully completed and implemented according to the brief. 
-
-You can paste this directly into your GitHub repository.
-
----
-
 # COM1003 Problem Sheet – Theme Park Ticket System
 
 ## Overview
@@ -403,7 +397,3 @@ COM1003 Java Programming
 University of Sheffield
 
 Theme Park Ticket System – Problem Sheet
-
----
-
-If you want, I can also generate a **much shorter README (≈150–200 words)** which is often better for coursework submissions because markers usually prefer concise documentation.
