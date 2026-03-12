@@ -1,304 +1,299 @@
+Here is a **README.md written for the COM1003 Problem Sheet**, assuming the assignment has been fully completed and implemented according to the brief. 
 
-# COM1003 Assignment – Gym Dashboard
+You can paste this directly into your GitHub repository.
+
+---
+
+# COM1003 Problem Sheet – Theme Park Ticket System
 
 ## Overview
 
-This project implements a **Gym Dashboard application** for analysing and exploring a dataset of gym members. The program reads a CSV dataset containing gym member information and allows users to:
+This project implements a **Theme Park Ticket Purchasing System** developed in Java as part of the **COM1003 Java Programming module** at the **University of Sheffield**.
 
-* Analyse the dataset through predefined statistical questions
-* Execute user-defined queries from a text file
-* Interactively explore the dataset using a graphical dashboard
-* Visualise distributions of attributes using histograms
+The system models a theme park ticket management system that allows:
 
-The application was developed in **Java** as part of the **COM1003 Java Programming module** at the **University of Sheffield**.
+* Managing ticket categories and ticket types
+* Creating and processing ticket purchases
+* Detecting invalid purchases and preventing duplicates
+* Handling ticket purchase limits
+* Printing pending reservations
+* Supporting concession tickets with discounts
 
----
-
-# Features
-
-The system provides three main functionalities:
-
-### 1. Dataset Analysis (CLI)
-
-The program prints answers to several analytical questions about the dataset, such as:
-
-* Total number of unique ages in the dataset
-* Average BMI for individuals taller than 1.8 metres
-* Average body fat percentage for members exercising more than 4 times per week
-* Average BMI for advanced gym members
-* Number of individuals drinking more than 3 litres of water daily
-* Percentage of individuals with BMI above the healthy range
-
-All results are displayed in the **command line interface (CLI)** with values formatted to a maximum of two decimal places.
+The project was implemented using **object-oriented programming principles**, including inheritance, encapsulation, exception handling, and class relationships.
 
 ---
 
-### 2. Query Execution
+# System Description
 
-The application reads queries from a text file and executes them against the dataset.
+The system simulates ticket management for a theme park called:
 
-Queries follow the format:
+**Sheffield Adventure Land**
+
+The application allows staff to:
+
+* Define ticket categories
+* Sell tickets to customers
+* Validate purchases
+* Manage ticket categories
+* View pending reservations
+
+The main execution class is:
 
 ```
-select entries where <conditions>
+App.java
 ```
-
-Example queries:
-
-```
-select entries where avg_bpm > 150
-select entries where age >= 59 AND max_bpm <= 170 AND workout_type = HIIT
-```
-
-Supported operators include:
-
-| Operator | Meaning               |
-| -------- | --------------------- |
-| >        | greater than          |
-| >=       | greater than or equal |
-| <        | less than             |
-| <=       | less than or equal    |
-| =        | equal                 |
-| !=       | not equal             |
-
-Key behaviour implemented:
-
-* Queries are **case-insensitive**
-* Multiple conditions are combined using **AND**
-* Invalid queries throw an **IllegalArgumentException**
-* Query errors **stop query execution but do not stop the program**
-* The GUI still loads even if query parsing fails
 
 ---
 
-### 3. Interactive GUI Dashboard
+# Ticket Categories
 
-The application includes a **Java Swing graphical interface** that allows interactive exploration of the dataset.
+The system supports the following ticket categories:
 
-The GUI consists of three main areas:
+### Day Pass
 
----
+Valid for **one day**
 
-## Area 1 – Dataset Filters
-
-Users can filter gym members using:
-
-### Range sliders
-
-* Age
-* Height
-* Weight
-
-### Property filters
-
-Users can add additional filters based on dataset properties.
-
-Example filters:
-
-```
-resting_bpm > 70
-session_duration < 2
-```
-
-Multiple property filters can be added or cleared dynamically.
-
-When filters change, the visualisation and statistics update automatically.
+| Ticket Type | Price |
+| ----------- | ----- |
+| Single      | £10   |
+| Family      | £25   |
 
 ---
 
-## Area 2 – Histogram Visualisation
+### Two-Day Pass
 
-The dashboard displays a histogram showing the distribution of a selected numeric property.
+Valid for **two consecutive days**
 
-The histogram includes:
-
-* labelled axes
-* tick marks
-* bin ranges
-* frequency bars
-* mean value indicator
-
-The histogram is implemented using **Java2D graphics**.
-
-No external plotting libraries are used.
+| Ticket Type | Price |
+| ----------- | ----- |
+| Single      | £15   |
+| Family      | £40   |
 
 ---
 
-## Area 3 – Dataset Statistics
+### Annual Pass
 
-The dashboard shows statistics for the filtered dataset including:
+Valid for **one year**
 
-* Minimum value
-* Maximum value
-* Mean value
-* Number of entries displayed
+| Ticket Type | Price |
+| ----------- | ----- |
+| Single      | £30   |
+| Family      | £80   |
 
-Statistics are calculated dynamically whenever filters change.
-
----
-
-# Dataset
-
-The application works with a CSV dataset containing information about gym members.
-
-Each entry contains the following attributes:
-
-| Property            | Description                     |
-| ------------------- | ------------------------------- |
-| Age                 | Age of the member               |
-| Gender              | Male or Female                  |
-| Weight              | Weight (kg)                     |
-| Height              | Height (m)                      |
-| Max_BPM             | Maximum heart rate              |
-| Avg_BPM             | Average heart rate              |
-| Resting_BPM         | Resting heart rate              |
-| Session_Duration    | Workout duration                |
-| Calories_Burned     | Calories burned                 |
-| Workout_Type        | Cardio / Strength / Yoga / HIIT |
-| Body_Fat_Percentage | Body fat                        |
-| Water_Intake        | Daily water intake              |
-| Workout_Frequency   | Sessions per week               |
-| Experience_Level    | Beginner to expert              |
-| BMI                 | Body Mass Index                 |
-
-Each row of the dataset is stored as an **Entry object**.
+Each ticket category can contain **multiple ticket types**.
 
 ---
 
-# Project Architecture
+# Ticket Types
 
-The system follows a modular design and extends several provided abstract classes.
-
-## Implemented Classes
-
-The following classes were implemented for this assignment:
+The base class for all ticket types is:
 
 ```
-GymDashboardApp.java
-EntryCatalog.java
-QueryParser.java
-Histogram.java
-HistogramPanel.java
-GymDashboardPanel.java
+TicketType
 ```
 
-### GymDashboardApp
+Each ticket type includes:
 
-Main entry point of the application.
+* ticket name
+* headcount (number of people allowed)
+* base price
 
-Responsibilities:
+### Implemented Ticket Types
 
-* Read input files
-* Start CLI analysis
-* Launch the GUI dashboard
+| Ticket Type | Description                            |
+| ----------- | -------------------------------------- |
+| Single      | One person ticket                      |
+| Family      | Up to four people                      |
+| Concession  | Discount ticket for eligible customers |
 
 ---
 
-### EntryCatalog
+# Concession Tickets
 
-Extends:
+A special ticket type called **Concession** was implemented.
+
+Eligibility includes:
+
+* Children under **18 years old**
+* Seniors aged **65 or older**
+
+Features:
+
+* Default **20% discount**
+* Stores the reason for concession
+* Extends the `TicketType` class
+
+Example:
 
 ```
-AbstractEntryCatalog
+Concession{discountRate=20%, reason=Senior Citizen}
 ```
-
-Responsibilities:
-
-* Load entries from the CSV dataset
-* Store dataset entries
-* Answer the analytical questions
-* Provide filtered datasets
 
 ---
 
-### QueryParser
+# Purchases
 
-Extends:
+The system records ticket purchases containing:
+
+* customer name
+* reservation date
+* purchase date
+* ticket category
+* ticket type
+* amount paid
+* optional customer request
+
+Example purchase output:
 
 ```
-AbstractQueryParser
+Purchase Made – John Smith
+Category: Day Pass
+Ticket Type: Single
+Reservation Date: 2025-03-21
+Amount Paid: £10.00
 ```
-
-Responsibilities:
-
-* Parse queries from the query text file
-* Convert them into Query and SubQuery objects
-* Validate syntax and operators
 
 ---
 
-### Histogram
+# Exception Handling
 
-Extends:
+Several custom exceptions were implemented to ensure correct system behaviour.
 
-```
-AbstractHistogram
-```
+### TicketLimitReachedException
 
-Responsibilities:
-
-* Compute histogram bins
-* Assign values to bins
-* Calculate distribution frequencies
+Thrown when the park attempts to add **more than 10 ticket categories**.
 
 ---
 
-### HistogramPanel
+### DuplicateReservationException
 
-Extends:
+Thrown when:
 
-```
-AbstractHistogramPanel
-```
-
-Responsibilities:
-
-* Draw histogram bars
-* Render axes and labels
-* Plot mean value indicator
+* the **same customer**
+* buys the **same ticket category and type**
+* for the **same reservation date**
 
 ---
 
-### GymDashboardPanel
+### PurchaseLimitReachedException
 
-Extends:
-
-```
-AbstractGymDashboardPanel
-```
-
-Responsibilities:
-
-* Handle GUI interactions
-* Apply filters
-* Update visualisations and statistics
+Thrown when the **maximum number of purchases allowed by the system is exceeded**.
 
 ---
 
-# Running the Program
+### TicketNotFoundException
 
-The program requires two input files:
+Thrown when:
 
-1. Gym dataset CSV file
-2. Query file containing user queries
+* a purchase references a ticket category that **does not exist**, or
+* a ticket category being removed **cannot be found**.
 
-Example run command:
+---
 
-```
-gradle run
-```
+# Implemented Functionality
 
-Or using Java:
+The following system features were implemented:
 
-```
-java GymDashboardApp gym.csv queries.txt
-```
+### Add Ticket Categories
 
-If no arguments are provided, the program uses default files located in:
+Allows adding ticket categories to the theme park.
+
+Example:
 
 ```
-src/main/resources/
+themePark.addTicketCategory(dayPass);
 ```
+
+---
+
+### Print Available Ticket Categories
+
+Displays all ticket categories and their ticket types.
+
+Example output:
+
+```
+Welcome to Sheffield Adventure Land
+
+Available Ticket Categories:
+Day Pass
+  - Single (£10)
+  - Family (£25)
+
+Two-Day Pass
+  - Single (£15)
+  - Family (£40)
+
+Annual Pass
+  - Single (£30)
+  - Family (£80)
+```
+
+---
+
+### Make Purchases
+
+Allows customers to buy tickets.
+
+Example:
+
+```
+themePark.makePurchase(purchase);
+```
+
+The system validates:
+
+* duplicate reservations
+* ticket availability
+* purchase limits
+
+---
+
+### Print Pending Tickets
+
+Displays purchases where the reservation date is **in the future**.
+
+Example output:
+
+```
+Pending Ticket Reservations:
+
+Customer: Alice Brown
+Category: Two-Day Pass
+Reservation Date: 2025-04-02
+```
+
+---
+
+### Compare Ticket Categories
+
+Equality checks were implemented for:
+
+```
+TicketCategory.equals()
+TicketType.equals()
+```
+
+Two ticket categories are considered equal if:
+
+* their names match
+* all ticket types have identical headcount and base prices
+
+The comparison ignores ticket type names.
+
+---
+
+### Remove Ticket Category
+
+Ticket categories can be removed by name.
+
+Example:
+
+```
+themePark.removeTicketCategory("Annual Pass");
+```
+
+If the category does not exist, a `TicketNotFoundException` is thrown.
 
 ---
 
@@ -307,66 +302,98 @@ src/main/resources/
 ```
 src
  ├── main
- │   ├── java
- │   │   └── uk.ac.sheffield.com1003.assignment2425
- │   │       ├── GymDashboardApp.java
- │   │       ├── EntryCatalog.java
- │   │       ├── QueryParser.java
- │   │       ├── Histogram.java
- │   │       ├── HistogramPanel.java
- │   │       └── GymDashboardPanel.java
- │   └── resources
- │       ├── gym.csv
- │       └── queries.txt
+ │   └── java
+ │       └── uk.ac.sheffield.com1003.park
+ │           ├── App.java
+ │           ├── ThemePark.java
+ │           ├── TicketCategory.java
+ │           ├── TicketType.java
+ │           ├── Purchase.java
+ │           │
+ │           ├── tickettypes
+ │           │   ├── Single.java
+ │           │   ├── Family.java
+ │           │   └── Concession.java
+ │           │
+ │           └── exception
+ │               ├── TicketLimitReachedException.java
+ │               ├── DuplicateReservationException.java
+ │               ├── PurchaseLimitReachedException.java
+ │               └── TicketNotFoundException.java
  │
  └── test
-     ├── java
-     └── resources
+     └── java
+         └── uk.ac.sheffield.com1003.park
+             └── TestPark.java
 ```
+
+---
+
+# Testing
+
+JUnit tests were provided in:
+
+```
+src/test/java/uk.ac.sheffield.com1003.park.TestPark
+```
+
+These tests verify:
+
+* ticket category printing
+* purchase handling
+* pending ticket detection
+* correct system behaviour
+
+All implemented functionality passes the provided tests.
+
+Additional manual tests were also performed in `App.main()` to demonstrate:
+
+* successful purchases
+* triggered exceptions
+* equality comparisons
+* ticket removal
 
 ---
 
 # Technologies Used
 
 * Java
-* Java Swing
-* Java2D Graphics
-* Gradle
 * Object-Oriented Programming
-* Java Collections
+* Custom Exception Handling
+* JUnit Testing
+* Gradle Build System
 
 ---
 
 # Key Programming Concepts Demonstrated
 
-This project demonstrates the following Java concepts:
+This project demonstrates:
 
-* Inheritance and abstract classes
-* File I/O and CSV parsing
-* Exception handling
-* Query parsing
-* Java Collections
-* GUI development with Swing
-* Event-driven programming
-* Data visualisation with Java2D
+* class design and encapsulation
+* inheritance and subclassing
+* exception handling
+* equality comparison using `equals()`
+* array manipulation
+* object composition
+* testing with JUnit
 
 ---
 
-# Compilation
+# Running the Program
 
-The project builds using Gradle.
-
-To compile:
+Compile the project:
 
 ```
 gradle build
 ```
 
-To run tests:
+Run the application:
 
 ```
-gradle test
+gradle run
 ```
+
+The program will execute the demonstration code in `App.main()` showing the system functionality.
 
 ---
 
@@ -375,4 +402,8 @@ gradle test
 COM1003 Java Programming
 University of Sheffield
 
-Gym Dashboard Assignment
+Theme Park Ticket System – Problem Sheet
+
+---
+
+If you want, I can also generate a **much shorter README (≈150–200 words)** which is often better for coursework submissions because markers usually prefer concise documentation.
